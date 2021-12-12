@@ -1,12 +1,15 @@
+import React,{useState} from "react";
 import './App.css';
-import logo1 from './download.jfif';
-import logo2 from './edit.png';
+
+import SecondComponent from './Components/SecondComponent';
+import FirstComponents from "./Components/FirstComponent";
 
 
-import React from "react";
 import { BrowserRouter as Router, Switch , Route , Link} from "react-router-dom";
 
 export default function App() {
+  const [inputText, setInputText] = useState("");
+  const [todos, setTodos] = useState([]);
   return (
 
 
@@ -17,12 +20,12 @@ export default function App() {
 
     <Router>
       <div>
-      <div className="Head">
+      <header>
         <h1 className="he">Wellcome Todo</h1>
        
         <Link to="/" > <h4 className="he1">--Go First Page</h4>   <p/></Link>
-     </div>
-
+     </header>
+     
 
 
 
@@ -36,13 +39,12 @@ export default function App() {
 
         <Switch>
           <Route path="/secondcomponents" component>
-            <About />
+            <FirstComponents  inputText={inputText} todos={todos} setTodos={setTodos} setInputText={setInputText} />
+            <SecondComponent todos={todos} setTodos={setTodos} />
           </Route>
-          <Route path="/ThirdComponents">
-            <Users />
-          </Route>
+         
           <Route path="/">
-            <Home />
+            <Home  />          
           </Route>
         </Switch>
       </div>
@@ -64,10 +66,6 @@ function Home() {
          </h2><p/>
          <Link to="/secondcomponents" ><button className="bu">click</button>   <p/></Link>
            
-        <h2>
-             Show Data
-         </h2><p/>
-         <Link to="/ThirdComponents" ><button className="bu">click</button>   <p/></Link>
         
     </div>
     </div>
@@ -78,10 +76,23 @@ function Home() {
 
 
 
+/*
 
+function About({ setInputText, todos, setTodos, inputText}) {
+  const inputTextHandler = (e) => {
+    console.log(e.target.value);
+    setInputText(e.target.value);
+};
 
-function About() {
-  return <div>
+const submitTodoHandler =(e) => {
+    e.preventDefault();//not refreash
+    setTodos([
+        ...todos,
+        {text: inputText, completed: false, id : Math.random() * 1000 },
+    ]);
+    setInputText("");
+};
+ return <div>
   <div className="da">
       <h2>
           Add Items
@@ -90,24 +101,23 @@ function About() {
               <h5 className="lb">
                   Add item succesfully
               </h5><p/>
-              <input type="text" id="fname" name="fname"></input>
+      <form>
+      <input type="text" value={inputText} onChange={inputTextHandler} type="text"  name="fname"></input>
          
-      <button className="b1">Submit</button> <p/>
+      <button className="b1" onClick={submitTodoHandler}  type="submit">Submit</button> <p/>
+      </form>
       </div>
       <div className="inp">
-      <b>Show Data</b>
-      <Link to="/ThirdComponents" ><button className="b2">click</button>   <p/></Link>
-      
       </div>      
  </div>
  </div>;
 }
+*/
 
 
 
 
-
-
+/*
 
 function Users() {
   return <div>
@@ -137,4 +147,4 @@ function Users() {
          </div>      
 </div>
 </div>;
-}
+}*/
